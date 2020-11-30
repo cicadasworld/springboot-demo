@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" th:href="@{/img/favicon.ico}">
+
+    <title>Dashboard Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+  </head>
+
+  <body>
+    <div th:replace="~{commons/commons::navbar}"></div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div th:replace="~{commons/commons::sidebar(active='list.html')}"></div>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+          <form th:action="@{/emp/update}" method="post">
+            <input type="hidden" name="id" th:value="${emp.id}">
+            <div class="form-group">
+              <label for="employeeName">姓名</label>
+              <input type="text" th:value="${emp.employeeName}" name="employeeName" class="form-control" id="employeeName" placeholder="张三">
+            </div>
+            <div class="form-group">
+              <label for="email">邮箱</label>
+              <input type="text" th:value="${emp.email}" name="email" class="form-control" id="email" placeholder="zhangsan@test.com">
+            </div>
+            <div class="form-group">
+              <label>性别</label>
+              <div class="form-check form-check-inline">
+                <input th:checked="${emp.gender==1}" class="form-check-input" type="radio" name="gender" value="1">
+                <label class="form-check-label">男</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input th:checked="${emp.gender==0}" class="form-check-input" type="radio" name="gender" value="0">
+                <label class="form-check-label">女</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>部门</label>
+              <select class="form-control" name="department.id">
+                <option th:selected="${dept.id == emp.department.id}" th:each="dept : ${depts}" th:text="${dept.deptName}" th:value="${dept.id}"></option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="date">日期</label>
+              <input type="text" th:value="${#dates.format(emp.date, 'yyyy-MM-dd')}" name="date" id="date" class="form-control" placeholder="1990-10-02">
+            </div>
+            <button type="submit" class="btn btn-primary">添加</button>
+          </form>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

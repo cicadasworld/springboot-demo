@@ -1,0 +1,32 @@
+person:
+  name: jin${random.uuid}
+  age: ${random.int}
+  happy: false
+  dob: 2020/11/26
+  map: {k1: v1, k2: v2}
+  list:
+    - code
+    - music
+  dog:
+    name: ${person.hello:hello}_wang
+    age: 5
+
+spring:
+  profiles:
+    active: prod
+
+---
+#  dev
+spring:
+  profiles: dev
+
+server:
+  port: 8088
+
+---
+spring:
+  profiles: prod
+
+#  prod
+server:
+  port: 8077
